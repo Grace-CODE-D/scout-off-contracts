@@ -1,3 +1,16 @@
+// IMPORTANT: Cross-contract wiring required after deployment
+//
+// `approve_milestone` calls `advance_level` on the progress contract to update
+// a player's progress level atomically. This link is NOT automatic — after
+// deploying both contracts you MUST run:
+//
+//   stellar contract invoke --id $VERIFICATION_CONTRACT_ID \
+//     -- set_progress_contract \
+//     --progress_contract $PROGRESS_CONTRACT_ID
+//
+// The easiest way is to run `./scripts/initialize.sh` which does this for you.
+// Without this step, milestones are recorded but player levels will NOT advance.
+
 mod errors;
 mod events;
 mod types;
